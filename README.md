@@ -1,6 +1,7 @@
 # Runedoku Runelite Plugin
 Runelite plugin to solve Ali M's Runedoku.
 
+Works 95% of the time (If puzzle is completed green and doesn't submit, restart the puzzle)
 
 ![alt text](https://i.gyazo.com/f16bd395a8d0ecef1db1f426362cd83c.png)
 
