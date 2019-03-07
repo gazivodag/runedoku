@@ -53,7 +53,11 @@ class RunedokuOverlay extends Overlay {
 				for (int i = 121 ; i < 130 ; i++) {
 					Widget widget = client.getWidget(288, i);
 					if (solved) {
-						OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), RunedokuPlugin.referenceColors(i));
+						if (!RunedokuPlugin.makeSimple(Sudoku.createTable(client)).contains(0)) {
+							OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), Color.GREEN);
+						} else {
+							OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), RunedokuPlugin.referenceColors(i));
+						}
 					} else {
 						OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), RED);
 					}
@@ -65,7 +69,12 @@ class RunedokuOverlay extends Overlay {
 				for (int i = 10 ; i < 91 ; i++) {
 					Widget squareToHighlight = client.getWidget(288, i);
 					if (solved) {
-						OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), RunedokuPlugin.sudokuPieceToColor(simpleArr.get(iteration)));
+						if (!RunedokuPlugin.makeSimple(Sudoku.createTable(client)).contains(0)) {
+							OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), Color.GREEN);
+						} else {
+							OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), RunedokuPlugin.sudokuPieceToColor(simpleArr.get(iteration)));
+						}
+
 						iteration++;
 					} else {
 						OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), RED);
