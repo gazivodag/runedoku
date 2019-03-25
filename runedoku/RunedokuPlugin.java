@@ -1,3 +1,27 @@
+/*
+ * Copyright (c) 2019, gazivodag <https://github.com/gazivodag>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package net.runelite.client.plugins.runedoku;
 
 import net.runelite.api.Client;
@@ -17,6 +41,7 @@ import java.util.ArrayList;
 		tags = {"overlay", "runedoku", "sudoku", "puzzle", "solving"}
 )
 
+@SuppressWarnings("unused")
 public class RunedokuPlugin extends Plugin {
 
 	static final Color MIND_RUNE_COLOR = Color.PINK; //1
@@ -28,9 +53,6 @@ public class RunedokuPlugin extends Plugin {
 	static final Color CHAOS_RUNE_COLOR = Color.YELLOW; //7
 	static final Color EARTH_RUNE_COLOR = Color.GREEN; //8
 	static final Color LAW_RUNE_COLOR = Color.CYAN; //9
-
-	@Inject
-	QueryRunner queryRunner;
 
 	@Inject
 	private Client client;
@@ -48,7 +70,6 @@ public class RunedokuPlugin extends Plugin {
 
 	@Override
 	protected void shutDown() throws Exception {
-		System.out.println("I was shut down!");
 		overlayManager.remove(runedokuOverlay);
 	}
 
@@ -80,23 +101,23 @@ public class RunedokuPlugin extends Plugin {
 	static Color referenceColors(int i) {
 		switch (i) {
 			case 121: //earth
-				return RunedokuPlugin.EARTH_RUNE_COLOR;
+				return EARTH_RUNE_COLOR;
 			case 122: //water
-				return RunedokuPlugin.WATER_RUNE_COLOR;
+				return WATER_RUNE_COLOR;
 			case 123: //air
-				return RunedokuPlugin.AIR_RUNE_COLOR;
+				return AIR_RUNE_COLOR;
 			case 124: //mind
-				return RunedokuPlugin.MIND_RUNE_COLOR;
+				return MIND_RUNE_COLOR;
 			case 125: //fire
-				return RunedokuPlugin.FIRE_RUNE_COLOR;
+				return FIRE_RUNE_COLOR;
 			case 126: //body
-				return RunedokuPlugin.BODY_RUNE_COLOR;
+				return BODY_RUNE_COLOR;
 			case 127: //death
-				return RunedokuPlugin.DEATH_RUNE_COLOR;
+				return DEATH_RUNE_COLOR;
 			case 128: //chaos
-				return RunedokuPlugin.CHAOS_RUNE_COLOR;
+				return CHAOS_RUNE_COLOR;
 			case 129: //law
-				return RunedokuPlugin.LAW_RUNE_COLOR;
+				return LAW_RUNE_COLOR;
 			default:
 				return Color.RED;
 		}

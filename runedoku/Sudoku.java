@@ -94,10 +94,10 @@ public class Sudoku {
 
 
 	/**
-	 * Pulls data from what's on the Runedoku interface and creates a 3dimensional array for it
+	 * Pulls data from what's on the Runedoku interface and creates a 2dimensional array for it
 	 * @author gazivodag
 	 * @param client
-	 * @return
+	 * @return sudoku table that the client currently sees in a 2d array
 	 */
 	static int[][] createTable(Client client) {
 		int[][] myArr = new int[9][9];
@@ -114,7 +114,7 @@ public class Sudoku {
 				if (myIndex == 81) break;
 				item = sudokuScreen.getWidgetItem(myIndex);
 				if (item != null) {
-					myArr[i][ii] = RunedokuPiece.getById(item.getId()).getPieceForSodoku();
+					myArr[i][ii] = RunedokuPiece.getById(item.getId()).getPieceForSudoku();
 				} else {
 					myArr[i][ii] = 0;
 				}
