@@ -43,21 +43,19 @@ class RunedokuOverlay extends Overlay {
 
 	private final RunedokuPlugin plugin;
 	private final Client client;
-	//private final TooltipManager tooltipManager;
-	//private final PanelComponent panelComponent = new PanelComponent();
+	private final RunedokuUtil util;
 
 
 	@Inject
-	private RunedokuOverlay(final RunedokuPlugin plugin, final Client client/*, final TooltipManager tooltipManager*/) {
+	private RunedokuOverlay(final RunedokuPlugin plugin, final Client client, final RunedokuUtil util) {
 		super(plugin);
 		this.plugin = plugin;
 		this.client = client;
-		//this.tooltipManager = tooltipManager;
+		this.util = util;
 
 		setPosition(OverlayPosition.DETACHED);
 		setLayer(OverlayLayer.ALWAYS_ON_TOP);
 		setPriority(OverlayPriority.MED);
-
 	}
 
 	@Override
@@ -67,7 +65,7 @@ class RunedokuOverlay extends Overlay {
 
 		if (sudokuScreen != null) {
 			if (!sudokuScreen.isHidden()) {
-				Sudoku sudoku = new Sudoku(Sudoku.createTable(client));
+				Sudoku sudoku = new Sudoku(util.createTable(client));
 				boolean solved = sudoku.solve();
 
 				renderReferenceRunes(graphics, solved);
@@ -89,13 +87,13 @@ class RunedokuOverlay extends Overlay {
 		for (int i = 121 ; i < 130 ; i++) {
 			Widget widget = client.getWidget(288, i);
 			if (solved) {
-				if (!RunedokuPlugin.makeSimple(Sudoku.createTable(client)).contains(0)) {
-					OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), Color.GREEN);
+				if (!util.makeSimple(util.createTable(client)).contains(0)) {
+					OverlayUtil.renderPolygon(graphics, util.RectangleToPolygon(widget.getBounds()), Color.GREEN);
 				} else {
-					OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), RunedokuPlugin.referenceColors(i));
+					OverlayUtil.renderPolygon(graphics, util.RectangleToPolygon(widget.getBounds()), util.referenceColors(i));
 				}
 			} else {
-				OverlayUtil.renderPolygon(graphics, RectangleToPolygon(widget.getBounds()), RED);
+				OverlayUtil.renderPolygon(graphics, util.RectangleToPolygon(widget.getBounds()), RED);
 			}
 
 		}
@@ -108,35 +106,23 @@ class RunedokuOverlay extends Overlay {
 	 * @param solved
 	 */
 	private void renderSolvedPuzzle(Graphics2D graphics, Sudoku sudoku, boolean solved) {
-		ArrayList<Integer> simpleArr = RunedokuPlugin.makeSimple(sudoku.getBoard());
+		ArrayList<Integer> simpleArr = util.makeSimple(sudoku.getBoard());
 		//highlight each cell to tell you which piece to place
 		int iteration = 0;
 		for (int i = 10 ; i < 91 ; i++) {
 			Widget squareToHighlight = client.getWidget(288, i);
 			if (solved) {
-				if (!RunedokuPlugin.makeSimple(Sudoku.createTable(client)).contains(0)) {
-					OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), Color.GREEN);
+				if (!util.makeSimple(util.createTable(client)).contains(0)) {
+					OverlayUtil.renderPolygon(graphics, util.RectangleToPolygon(squareToHighlight.getBounds()), Color.GREEN);
 				} else {
-					OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), RunedokuPlugin.sudokuPieceToColor(simpleArr.get(iteration)));
+					OverlayUtil.renderPolygon(graphics, util.RectangleToPolygon(squareToHighlight.getBounds()), util.sudokuPieceToColor(simpleArr.get(iteration)));
 				}
-
 				iteration++;
 			} else {
-				OverlayUtil.renderPolygon(graphics, RectangleToPolygon(squareToHighlight.getBounds()), RED);
+				OverlayUtil.renderPolygon(graphics, util.RectangleToPolygon(squareToHighlight.getBounds()), RED);
 			}
 
 		}
-	}
-
-	/**
-	 * utility method
-	 * @param rect
-	 * @return
-	 */
-	static Polygon RectangleToPolygon(Rectangle rect) {
-		int[] xpoints = {rect.x, rect.x + rect.width, rect.x + rect.width, rect.x};
-		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
-		return new Polygon(xpoints, ypoints, 4);
 	}
 
 }

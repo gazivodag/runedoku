@@ -1,10 +1,7 @@
 package net.runelite.client.plugins.runedoku;
 
-import net.runelite.api.Client;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetItem;
-
 /**
+ * Credits to whoever wrote this sudoku class.
  * @author ?
  */
 public class Sudoku {
@@ -90,37 +87,6 @@ public class Sudoku {
 
 	public int[][] getBoard() {
 		return board;
-	}
-
-
-	/**
-	 * Pulls data from what's on the Runedoku interface and creates a 2dimensional array for it
-	 * @author gazivodag
-	 * @param client
-	 * @return sudoku table that the client currently sees in a 2d array
-	 */
-	static int[][] createTable(Client client) {
-		int[][] myArr = new int[9][9];
-		Widget sudokuScreen = client.getWidget(288,131);
-		for (int i = 0 ; i < 9 ; i++) {
-			for (int ii = 0 ; ii < 9 ; ii++) {
-				WidgetItem item;
-				int myIndex;
-				if (i > 0) {
-					myIndex = ((i * 10) + ii) - i;
-				} else {
-					myIndex = ii;
-				}
-				if (myIndex == 81) break;
-				item = sudokuScreen.getWidgetItem(myIndex);
-				if (item != null) {
-					myArr[i][ii] = RunedokuPiece.getById(item.getId()).getPieceForSudoku();
-				} else {
-					myArr[i][ii] = 0;
-				}
-			}
-		}
-		return myArr;
 	}
 
 }
